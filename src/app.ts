@@ -6,7 +6,7 @@ export const app =
 req: http.IncomingMessage, 
 res: http.ServerResponse) => {
 
-    const [baseUrl, QueryString] = req.url?.split("?") ?? ("");
+    const baseUrl = req.url?.split("?")[0];
 
 
     if(req.method === "GET" && baseUrl === Routes.LIST){

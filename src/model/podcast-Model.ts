@@ -1,4 +1,3 @@
-
 export interface Podcast {
     podCastName: string,
     episode: string,

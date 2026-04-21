@@ -1,12 +1,15 @@
 import {IncomingMessage, ServerResponse} from "http"
 import * as service from "../service/podcast-Service"
-
+import { ContentType } from '../utils/podcast-ContentType';
+import { Response }  from  "../model/podcast-Response"
 
 
 export const getListEpisodes = async (req: IncomingMessage, res: ServerResponse) => {
-    const content = await service.serviceListEpisodis(req, res)
-    res.writeHead(200, {'Content-Type': "application/json"})
-    res.end(JSON.stringify(content))
+    const content: Response = await service.serviceListEpisodis(req, res)
+
+    res.writeHead(content.status, {'Content-Type': ContentType.JSON })
+    res.write(JSON.stringify(content.body))
+    res.end()
 }
 
 
@@ -16,8 +19,9 @@ export const getFilterEpisodes = async (
 
     
 
-    const content = await service.serviceFilterEpisodis(req.url ?? null)
+    const content: Response = await service.serviceFilterEpisodis(req.url ?? null)
 
-    res.writeHead(200, {'Content-Type': "application/json"})
-    res.end(JSON.stringify(content))
+    res.writeHead(content.status, {'Content-Type': ContentType.JSON })
+    res.write(JSON.stringify(content.body))
+    res.end()
 }
